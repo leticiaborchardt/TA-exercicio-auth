@@ -6,6 +6,7 @@ import com.exercise.auth.domain.user.RegisterDTO;
 import com.exercise.auth.domain.user.User;
 import com.exercise.auth.infra.security.TokenService;
 import com.exercise.auth.repositories.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -48,5 +49,13 @@ public class AuthController {
         this.userRepository.save(new User(data.login(), encryptedPassword, data.role()));
 
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        String token = tokenService.extractTokenFromRequest(request);
+        tokenService.addTokenToBlacklist(token);
+
+        return ResponseEntity.ok("Logged out successfully");
     }
 }
