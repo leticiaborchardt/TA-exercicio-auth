@@ -1,5 +1,6 @@
 package com.exercise.auth.infra.security;
 
+import com.exercise.auth.domain.user.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +31,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/appointment").hasAnyRole(UserRole.ADMIN.name(), UserRole.DOCTOR.name(), UserRole.RECEPTIONIST.name())
+                        .requestMatchers(HttpMethod.GET, "/appointment").hasAnyRole(UserRole.ADMIN.name(), UserRole.DOCTOR.name(), UserRole.PATIENT.name())
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
