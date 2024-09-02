@@ -56,6 +56,6 @@ public class AuthController {
         String token = tokenService.extractTokenFromRequest(request);
         tokenService.addTokenToBlacklist(token);
 
-        return ResponseEntity.ok("Logged out successfully");
+        return ResponseEntity.ok().build();
     }
 }
