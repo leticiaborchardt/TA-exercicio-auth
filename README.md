@@ -1,6 +1,6 @@
-# Exercício: Configuração Básica de Autenticação e Autorização
+# Exercise: Basic Authentication and Authorization Configuration
 
-**Objetivo**: Configurar autenticação básica usando o Spring Security com os seguintes endpoints:
+**Objective**: Configure basic authentication using Spring Security with the following endpoints:
 
 **/auth**
 - /login
